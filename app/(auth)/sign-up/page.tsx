@@ -3,7 +3,7 @@
 import { supabase } from "@/app/lib/supabase";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 
 export default function SignUp() {
@@ -13,9 +13,11 @@ export default function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  if (localStorage.getItem("user")) {
-    router.push("/");
-  }
+  useEffect(() => {
+    if (typeof window !== "undefined" && localStorage.getItem("user")) {
+      router.push("/");
+    }
+  }, []);
 
   const handleSubmit = async () => {
     setIsLoading(true);
@@ -37,22 +39,13 @@ export default function SignUp() {
           .single();
 
         if (error) {
-          toast("An internal server error occurred during registration.");
-
-          throw new Error(
-            "An internal server error occurred during registration."
-          );
+          // Handle errors appropriately
+          console.error(error);
         } else {
-          // Registration successful, redirect the user to the login page
-          console.log("User registered successfully");
-
-          // Store user data in local storage
-          localStorage.setItem("user", JSON.stringify(data));
-          // clear the input fields after successful registration
+          if (typeof window !== "undefined") {
+            localStorage.setItem("user", JSON.stringify(data));
+          }
           router.push("/");
-          setUsername("");
-          setEmail("");
-          setPassword("");
         }
       }
     } catch (err) {

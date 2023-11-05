@@ -3,13 +3,19 @@
 import { supabase } from "@/app/lib/supabase";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function SignIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && localStorage.getItem("user")) {
+      router.push("/");
+    }
+  }, []);
 
   if (localStorage.getItem("user")) {
     router.push("/");
@@ -30,11 +36,11 @@ export default function SignIn() {
       }
 
       if (data) {
-        // Store user data in local storage
-        localStorage.setItem("user", JSON.stringify(data));
+        if (typeof window !== "undefined") {
+          // Store user data in local storage
+          localStorage.setItem("user", JSON.stringify(data));
+        }
         router.push("/");
-
-        // You may want to redirect the user to another page or update the UI accordingly
       } else {
         throw new Error("Invalid user credentials");
       }

@@ -5,15 +5,22 @@ import { useEffect } from "react";
 
 export default function Home() {
   const router = useRouter();
-  const user = JSON.parse(localStorage.getItem("user") as string);
+  const user =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("user") || "{}")
+      : {};
 
-  if (!user) {
-    router.push("/sign-in");
-  }
+  useEffect(() => {
+    if (!user) {
+      router.push("/sign-in");
+    }
+  }, [user]);
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    router.push("/sign-in");
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("user");
+      router.push("/sign-in");
+    }
   };
 
   return (
