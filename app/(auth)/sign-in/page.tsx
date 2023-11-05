@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function SignIn() {
-  const [matriculationNo, setMatriculationNo] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -21,7 +21,7 @@ export default function SignIn() {
       const { data, error } = await supabase
         .from("users")
         .select()
-        .eq("matriculationNo", matriculationNo)
+        .eq("username", username)
         .eq("password", password)
         .single();
 
@@ -51,9 +51,9 @@ export default function SignIn() {
       <div className="w-96 mt-5 rounded-box space-y-5 p-3">
         <input
           type="text"
-          placeholder="Matric no"
-          value={matriculationNo}
-          onChange={(e) => setMatriculationNo(e.currentTarget.value)}
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.currentTarget.value)}
           className="input input-bordered w-full"
         />
 

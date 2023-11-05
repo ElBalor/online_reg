@@ -1,4 +1,4 @@
-"use client"; // It seems like a comment, make sure it's valid if you intended to use it as an import
+"use client";
 
 import { supabase } from "@/app/lib/supabase";
 import Link from "next/link";
@@ -10,7 +10,6 @@ export default function SignUp() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [matriculationNo, setMatriculationNo] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -29,42 +28,32 @@ export default function SignUp() {
 
       if (existingUser) {
         throw new Error("Username is already in use.");
-      }
-
-      // Check if matriculation number is already in use
-      const { data: existingMatriculationNo } = await supabase
-        .from("users")
-        .select("id")
-        .eq("matriculationNo", matriculationNo)
-        .single();
-
-      if (existingMatriculationNo) {
-        throw new Error("Matriculation number is already in use.");
-      }
-
-      // If both checks pass, proceed with registration
-      const { data, error } = await supabase
-        .from("users")
-        .insert({ username, email, password, matriculationNo })
-        .single();
-
-      if (error) {
-        toast("An internal server error occurred during registration.");
-        throw new Error(
-          "An internal server error occurred during registration."
-        );
       } else {
-        // Registration successful, redirect the user to the login page
-        console.log("User registered successfully");
+        // Username is not taken, proceed with registration
+        const { data, error } = await supabase
+          .from("users")
+          .insert({ username, email, password })
+          .select()
+          .single();
 
-        // Store user data in local storage
-        localStorage.setItem("user", JSON.stringify(data));
-        // Clear the input fields after successful registration
-        router.push("/");
-        setUsername("");
-        setEmail("");
-        setMatriculationNo("");
-        setPassword("");
+        if (error) {
+          toast("An internal server error occurred during registration.");
+
+          throw new Error(
+            "An internal server error occurred during registration."
+          );
+        } else {
+          // Registration successful, redirect the user to the login page
+          console.log("User registered successfully");
+
+          // Store user data in local storage
+          localStorage.setItem("user", JSON.stringify(data));
+          // clear the input fields after successful registration
+          router.push("/");
+          setUsername("");
+          setEmail("");
+          setPassword("");
+        }
       }
     } catch (err) {
       console.error(err);
@@ -87,17 +76,10 @@ export default function SignUp() {
         />
 
         <input
-          type="email"
+          type="text"
           value={email}
           onChange={(e) => setEmail(e.currentTarget.value)}
-          placeholder="Veritas email"
-          className="input input-bordered w-full"
-        />
-        <input
-          type="text"
-          value={matriculationNo}
-          onChange={(e) => setMatriculationNo(e.currentTarget.value)}
-          placeholder="Matriculation no"
+          placeholder="Matric No"
           className="input input-bordered w-full"
         />
 
