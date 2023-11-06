@@ -14,7 +14,7 @@ export default function SignUp() {
   const router = useRouter();
 
   useEffect(() => {
-    if (typeof window !== "undefined" && localStorage.getItem("user")) {
+    if (typeof window !== undefined && localStorage.getItem("user")) {
       router.push("/");
     }
   }, []);
@@ -42,7 +42,7 @@ export default function SignUp() {
           // Handle errors appropriately
           console.error(error);
         } else {
-          if (typeof window !== "undefined") {
+          if (typeof window !== undefined) {
             localStorage.setItem("user", JSON.stringify(data));
           }
           router.push("/");

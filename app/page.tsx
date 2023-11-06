@@ -6,7 +6,7 @@ import { useEffect } from "react";
 export default function Home() {
   const router = useRouter();
   const user =
-    typeof window !== "undefined"
+    typeof window !== undefined
       ? JSON.parse(localStorage.getItem("user") || "{}")
       : {};
 
@@ -17,7 +17,7 @@ export default function Home() {
   }, [user]);
 
   const handleLogout = () => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== undefined) {
       localStorage.removeItem("user");
       router.push("/sign-in");
     }

@@ -12,7 +12,7 @@ export default function SignIn() {
   const router = useRouter();
 
   useEffect(() => {
-    if (typeof window !== "undefined" && localStorage.getItem("user")) {
+    if (typeof window !== undefined && localStorage.getItem("user")) {
       router.push("/");
     }
   }, []);
@@ -36,7 +36,7 @@ export default function SignIn() {
       }
 
       if (data) {
-        if (typeof window !== "undefined") {
+        if (typeof window !== undefined) {
           // Store user data in local storage
           localStorage.setItem("user", JSON.stringify(data));
         }
