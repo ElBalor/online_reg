@@ -65,9 +65,9 @@ export default function Home() {
         <div className="max-w-xl">
           <h1 className="text-5xl font-bold">Hello, {user?.username}</h1>
           <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
+            The Course registeration will be Available in a very short while,
+            Please be alert for any more information that will be dilivered to
+            you soon.
           </p>
           <button className="btn btn-primary">Get Started</button>
         </div>
