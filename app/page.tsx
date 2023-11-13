@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import Link from "next/link";
 
 export default function Home() {
   const router = useRouter();
@@ -66,10 +67,12 @@ export default function Home() {
           <h1 className="text-5xl font-bold">Hello, {user?.username}</h1>
           <p className="py-6">
             The Course registeration will be Available in a very short while,
-            Please be alert for any more information that will be dilivered to
+            Please be alert for any more information that will be delivered to
             you soon.
           </p>
-          <button className="btn btn-primary">Get Started</button>
+          <Link href="/tables" className="btn btn-primary">
+            Get Started
+          </Link>
         </div>
       </div>
     </div>
