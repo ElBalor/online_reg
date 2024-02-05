@@ -148,7 +148,7 @@ export const columns: ColumnDef<Payment>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="bg-slate-800">
-            <DropdownMenuLabel className="rounded-3xl bg-slate-500 pl-16 text-rose-700 font-semibold">
+            <DropdownMenuLabel className="rounded-3xl bg-slate-500 pl-16 text-white/70 font-semibold">
               Actions
             </DropdownMenuLabel>
             <DropdownMenuItem
@@ -157,8 +157,12 @@ export const columns: ColumnDef<Payment>[] = [
               Drop a course
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Pick a course</DropdownMenuItem>
-            <DropdownMenuItem>Meet faculty for more info</DropdownMenuItem>
+            <DropdownMenuItem className="bg-slate-500">
+              Pick a course
+            </DropdownMenuItem>
+            <DropdownMenuItem className="hover:bg-slate-500">
+              Meet faculty for more info
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
