@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function Home() {
   const router = useRouter();
   const user =
-    typeof window !== undefined
+    typeof window !== "undefined"
       ? JSON.parse(localStorage.getItem("user") || "{}")
       : {};
 
