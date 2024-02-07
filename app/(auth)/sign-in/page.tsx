@@ -12,14 +12,17 @@ export default function SignIn() {
   const router = useRouter();
 
   useEffect(() => {
-    if (typeof window !== undefined && localStorage.getItem("user")) {
-      router.push("/");
+    // Check if localStorage is available before using it
+    if (typeof localStorage !== "undefined") {
+      // Your localStorage-related code here
+      const token = localStorage.getItem("token");
+      // ... other localStorage operations
     }
   }, []);
 
-  if (localStorage.getItem("user")) {
-    router.push("/");
-  }
+  // if (localStorage.getItem("user")) {
+  //   router.push("/");
+  // }
 
   const handleSubmit = async () => {
     setIsLoading(true);
